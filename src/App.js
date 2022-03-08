@@ -23,6 +23,12 @@ function App() {
     })
   }
 
+  function deleteUser(id) {
+    usersProvider.deleteById(id)
+    let tmp = usersProvider.getListe()
+    setListe(tmp)
+  }
+
   const displayListe = liste.map((user, index) => {
     return (
       <tr key={user.id}>
@@ -30,6 +36,15 @@ function App() {
         <td>{user.id}</td>
         <td>{user.prenom}</td>
         <td>{user.nom}</td>
+        <td>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => deleteUser(user.id)}
+          >
+            Supprimer
+          </Button>
+        </td>
       </tr>
     )
   })
@@ -90,6 +105,7 @@ function App() {
                   <th>id</th>
                   <th>Prénom</th>
                   <th>Nom</th>
+                  <th>Supprimer</th>
                 </tr>
               </thead>
               <tbody>{displayListe}</tbody>
