@@ -17,6 +17,7 @@ class usersProvider {
 
   load() {
     let datas = localStorage.getItem("app-test-users")
+    datas = datas === null ? "[]" : datas
     datas = JSON.parse(datas)
     this.liste = [...datas]
   }
