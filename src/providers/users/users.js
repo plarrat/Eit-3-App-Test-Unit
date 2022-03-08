@@ -13,6 +13,7 @@ class usersProvider {
     this.load()
     this.liste.push(user)
     this.save()
+    return id
   }
 
   load() {
@@ -24,6 +25,23 @@ class usersProvider {
 
   save() {
     localStorage.setItem("app-test-users", JSON.stringify(this.liste))
+  }
+
+  getById(id) {
+    this.load()
+    let res = this.liste.find((user) => user.id === id)
+    return res === undefined ? -1 : res
+  }
+
+  deleteById(id) {
+    this.load()
+    let liste = this.getListe()
+    let index = liste.findIndex((user) => user.id === id)
+    if (index === -1) return -1
+    liste.splice(index, 1)
+    this.liste = liste
+    this.save()
+    return true
   }
 
   getListe() {
