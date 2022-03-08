@@ -58,20 +58,20 @@ describe("Test du formulaire", () => {
   it("should add user in the page", async () => {
     render(<App />)
     let prenom = screen.getByTestId("input-prenom")
-    fireEvent.change(prenom, { target: { value: "Philippe" } })
+    fireEvent.change(prenom, { target: { value: "PhilippeTest" } })
 
     let nom = screen.getByTestId("input-nom")
-    fireEvent.change(nom, { target: { value: "Larrat" } })
+    fireEvent.change(nom, { target: { value: "LarratTest" } })
 
     let btn = screen.getByTestId("btn-submit")
     fireEvent.click(btn)
 
     await waitFor(() => {
-      expect(screen.getByText("Philippe")).toBeInTheDocument()
+      expect(screen.getByText("PhilippeTest")).toBeInTheDocument()
     })
 
     await waitFor(() => {
-      expect(screen.getByText("Larrat")).toBeInTheDocument()
+      expect(screen.getByText("LarratTest")).toBeInTheDocument()
     })
 
     await waitFor(() => {
@@ -81,5 +81,22 @@ describe("Test du formulaire", () => {
     await waitFor(() => {
       expect(nom.value).toBe("")
     })
+  })
+})
+
+describe("Test de la suppression", () => {
+  it("should delete last user", async () => {
+    render(<App />)
+    let btns = screen.getAllByText("Supprimer")
+    let size = btns.length
+    expect(size).not.toBe(0)
+
+    let btn = btns[size - 1]
+    fireEvent.click(btn)
+    let prenom = screen.queryByText("PhilippeTest")
+    expect(prenom).not.toBeInTheDocument()
+
+    let nom = screen.queryByText("LarratTest")
+    expect(nom).not.toBeInTheDocument()
   })
 })
