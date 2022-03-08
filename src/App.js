@@ -11,10 +11,17 @@ function App() {
   })
 
   useEffect(() => {
+    majListe()
+  }, [])
+
+  function majListe() {
     let datas = usersProvider.getListe()
     setListe(datas)
-    // usersProvider.add("philippe", "LARRAT")
-  }, [])
+    setFormUser({
+      prenom: "",
+      nom: "",
+    })
+  }
 
   const displayListe = liste.map((user, index) => {
     return (
@@ -42,6 +49,7 @@ function App() {
           onSubmit={(e) => {
             e.preventDefault()
             usersProvider.add(formUser.prenom, formUser.nom)
+            majListe()
           }}
         >
           <Row>

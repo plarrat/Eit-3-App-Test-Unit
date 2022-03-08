@@ -10,6 +10,7 @@ class usersProvider {
       prenom,
       nom,
     }
+    this.load()
     this.liste.push(user)
     this.save()
   }
