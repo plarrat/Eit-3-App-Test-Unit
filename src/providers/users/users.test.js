@@ -1,4 +1,11 @@
 import usersProvider from "./users"
+import axios from "axios"
+
+jest.mock("axios")
+const datasMock = {
+  data: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+  status: 200,
+}
 
 let id = usersProvider.add("xxx", "yyy")
 
@@ -44,5 +51,19 @@ describe("Test de la methode deleteById()", () => {
   it("should not find after delete", () => {
     const res = usersProvider.deleteById(id)
     expect(res).toBe(-1)
+  })
+})
+
+describe("Test de l'importation", () => {
+  it("should return 200 status", async () => {
+    axios.get.mockResolvedValue(datasMock)
+    let datas = await usersProvider.importation()
+    expect(datas.status).toBe(200)
+  })
+
+  it("should have 10 users", async () => {
+    axios.get.mockResolvedValue(datasMock)
+    let datas = await usersProvider.importation()
+    expect(datas.data.length).toBe(10)
   })
 })

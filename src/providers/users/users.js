@@ -1,10 +1,14 @@
+import axios from "axios"
+
 class usersProvider {
   constructor() {
     this.liste = []
   }
 
   add(prenom, nom) {
-    const id = Date.now()
+    const dateNow = Date.now()
+    const random = Math.floor(Math.random() * 10000)
+    const id = "" + dateNow + random
     const user = {
       id,
       prenom,
@@ -47,6 +51,16 @@ class usersProvider {
   getListe() {
     this.load()
     return this.liste
+  }
+
+  async importation() {
+    // axios.get("https://jsonplaceholder.typicode.com/users").then((datas) => {
+    //   console.log(datas)
+    // })
+
+    let datas = await axios.get("https://jsonplaceholder.typicode.com/users")
+    datas.data.forEach((user) => this.add(user.name, user.username))
+    return datas
   }
 }
 

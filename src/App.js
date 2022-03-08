@@ -29,6 +29,12 @@ function App() {
     setListe(tmp)
   }
 
+  function importation() {
+    usersProvider.importation()
+    let tmp = usersProvider.getListe()
+    setListe(tmp)
+  }
+
   const displayListe = liste.map((user, index) => {
     return (
       <tr key={user.id}>
@@ -110,6 +116,12 @@ function App() {
               </thead>
               <tbody>{displayListe}</tbody>
             </Table>
+          </Col>
+        </Row>
+
+        <Row className="mt-3">
+          <Col className="text-center">
+            <Button onClick={importation}>Importer</Button>
           </Col>
         </Row>
       </Container>
