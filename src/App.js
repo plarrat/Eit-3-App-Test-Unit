@@ -29,9 +29,10 @@ function App() {
     setListe(tmp)
   }
 
-  function importation() {
-    usersProvider.importation()
+  async function importation() {
+    await usersProvider.importation()
     let tmp = usersProvider.getListe()
+    console.log(tmp)
     setListe(tmp)
   }
 
