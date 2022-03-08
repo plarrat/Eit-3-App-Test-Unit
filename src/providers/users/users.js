@@ -25,6 +25,7 @@ class usersProvider {
   }
 
   getListe() {
+    this.load()
     return this.liste
   }
 }

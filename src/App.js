@@ -4,15 +4,28 @@ import usersProvider from "./providers/users/users"
 import { useEffect, useState } from "react"
 
 function App() {
+  const [liste, setListe] = useState([])
   const [formUser, setFormUser] = useState({
     prenom: "",
     nom: "",
   })
 
   useEffect(() => {
+    let datas = usersProvider.getListe()
+    setListe(datas)
     // usersProvider.add("philippe", "LARRAT")
   }, [])
 
+  const displayListe = liste.map((user, index) => {
+    return (
+      <tr key={user.id}>
+        <td>{index + 1}</td>
+        <td>{user.id}</td>
+        <td>{user.prenom}</td>
+        <td>{user.nom}</td>
+      </tr>
+    )
+  })
   return (
     <div className="App">
       <NavbarApp />
@@ -71,14 +84,7 @@ function App() {
                   <th>Nom</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>Philippe</td>
-                  <td>Larrat</td>
-                </tr>
-              </tbody>
+              <tbody>{displayListe}</tbody>
             </Table>
           </Col>
         </Row>
