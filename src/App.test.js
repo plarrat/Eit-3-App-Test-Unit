@@ -54,4 +54,32 @@ describe("Test du formulaire", () => {
     let btn = screen.getByTestId("btn-submit")
     expect(btn).toBeInTheDocument()
   })
+
+  it("should add user in the page", async () => {
+    render(<App />)
+    let prenom = screen.getByTestId("input-prenom")
+    fireEvent.change(prenom, { target: { value: "Philippe" } })
+
+    let nom = screen.getByTestId("input-nom")
+    fireEvent.change(nom, { target: { value: "Larrat" } })
+
+    let btn = screen.getByTestId("btn-submit")
+    fireEvent.click(btn)
+
+    await waitFor(() => {
+      expect(screen.getByText("Philippe")).toBeInTheDocument()
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Larrat")).toBeInTheDocument()
+    })
+
+    await waitFor(() => {
+      expect(prenom.value).toBe("")
+    })
+
+    await waitFor(() => {
+      expect(nom.value).toBe("")
+    })
+  })
 })
