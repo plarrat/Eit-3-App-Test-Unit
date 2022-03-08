@@ -77,6 +77,7 @@ function App() {
             <Col md="5">
               <Form.Control
                 placeholder="Prénom"
+                data-testid="input-prenom"
                 value={formUser.prenom}
                 onChange={(e) => {
                   let tmp = { ...formUser }
@@ -88,6 +89,7 @@ function App() {
             <Col md="5">
               <Form.Control
                 placeholder="Nom de famille"
+                data-testid="input-nom"
                 value={formUser.nom}
                 onChange={(e) => {
                   let tmp = { ...formUser }
@@ -97,7 +99,9 @@ function App() {
               />
             </Col>
             <Col md="2">
-              <Button type="submit">Enregistrer</Button>
+              <Button type="submit" data-testid="btn-submit">
+                Enregistrer
+              </Button>
             </Col>
           </Row>
         </Form>
@@ -121,7 +125,9 @@ function App() {
 
         <Row className="mt-3">
           <Col className="text-center">
-            <Button onClick={importation}>Importer</Button>
+            <Button data-testid="btn-import" onClick={importation}>
+              Importer
+            </Button>
           </Col>
         </Row>
       </Container>
